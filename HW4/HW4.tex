@@ -1,0 +1,73 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[russian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Методы Оптимизации, ДЗ №4}
+\author{Начинкин Илья, 695}
+
+\begin{document}
+\maketitle
+
+\section*{Задача 2}
+$$\Sigma_{i=1}^{n}\frac{c_i}{x_i}$$
+$$ s.t. \Sigma_{i=1}^{n}a_i*x_i \leq b $$
+$$x_i > 0, b > 0, c_i > 0, a_i > 0 $$
+\subsection*{Решение:}
+
+$$\frac{\partial f(x)}{\partial x_i} = -\frac{c_i}{x_i^2}$$
+$$\frac{\partial^2 f(x)}{\partial x_i^2} = \frac{2c_i}{x_i^2} ; \frac{\partial^2 f(x)}{\partial x_i \partial x_j}=0$$
+
+$$f''(x) \succeq 0 $$, значит - выпукла, То есть условие в теореме ККТ является и достаточным для глобального минимума.
+
+$$h_1(x) = \Sigma_{i=1}^{n}a_i*x_i - b$$
+$$h_i(x) = -x_i < 0 \Longrightarrow \mu_i = 0$$ - по условию нежесткости, В теореме ККТ такие $\mu_i$  можно не учитывать.
+
+По теореме условие условие нежесткости $\mu_i*h_i(x) = 0$
+Несколько вариантов:
+
+\begin{enumerate}
+    \item $\mu = 0$
+    То есть тогда $\bigtriangledown L(x, \mu) = \bigtriangledown f(x)  = (-\frac{c_i}{x_i^2})_{i=1..n} = 0$ , что невозможно, то есть нет решения.
+    \item $\mu > 0 \Longrightarrow h(x) = 0$
+    Тогда $\frac{\partial L(x, \mu)}{\partial x_i} = -\frac{c_i}{x_i^2} + \mu*a_i = 0 \Longrightarrow x_i = \sqrt{\frac{c_i}{\mu*a_i}} \Longrightarrow \sum\sqrt{\frac{c_i*a_i}{\mu}} = b \Longrightarrow \mu = \frac{\sum\sqrt{c_i*a_i}}{b^2}$
+    
+    То есть при таком $\mu$ $x_i = \sqrt{\frac{c_i}{\mu*a_i}}$
+    
+\end{enumerate}
+
+$f(x) = \sum_{i=1}^{n}\sqrt{\mu c_i a_i}$ 
+\section*{Задача 4}
+$$ f(x) = x_1 + 4x_2 + 9x_3 $$
+$$s.t. \frac{1}{x_1} + \frac{1}{x_2} + \frac{1}{x_3} = 1 
+$$ 
+\subsection*{Решение:}
+f(x) - выпукла, значит условие в теореме ККТ является и достаточным для глоб. минимума 
+Запишем:
+$$\bigtriangledown L(x, \lambda) = \bigtriangledown f(x) + \lambda \bigtriangledown (\frac{1}{x_1} + \frac{1}{x_2} + \frac{1}{x_3} - 1) = 0$$
+Из этого путем вычисления частных производных несложно посчитать, что
+$$1 = \frac{\lambda}{x_1^2} \Longrightarrow x_1 = \pm \sqrt{\lambda}$$
+$$4 = \frac{\lambda}{x_2^2} \Longrightarrow x_2 = \pm \frac{1}{2} \sqrt{\lambda}$$
+$$9 = \frac{\lambda}{x_3^2} \Longrightarrow x_3 = \pm \frac{1}{3} \sqrt{\lambda}$$
+
+Всего 6 вариантов. Под условие $g(x) = 0$ подходят только 3 из них:
+\begin{enumerate}
+    \item $\lambda = 36 \Longrightarrow x_1 = 6; x_2 = 3 ; x_3 = 2  \Longrightarrow f(x) = 36$ \item $\lambda = 16 \Longrightarrow x_1 = -4; x_2 = 2 ; x_3 = \frac{4}{3}  \Longrightarrow f(x) = 16$
+    \item $\lambda = 4 \Longrightarrow x_1 = 2; x_2 = -1 ; x_3 = \frac{2}{3}  \Longrightarrow f(x) = 4$
+\end{enumerate}
+
+Тогда ответ получается $f(x) = 4$
+
+\end{document}

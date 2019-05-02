@@ -1,0 +1,128 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[russian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Методы Оптимизации, ДЗ №5}
+\author{Начинкин Илья, 695}
+
+\begin{document}
+\maketitle
+
+\section*{Задача №1}
+$$(x_1 - 3)^2 + (x_2 - 2)^2 \xrightarrow[]{} min$$
+$$s.t. x_1 + 2x_2 = 4$$
+    $$x_1^2 + x_2^2 \leq 5$$
+Построить двойственную задачу (ДЗ), решить ее и по решению ДЗ найти решение прямой задачи.   
+\subsection*{Решение:}
+
+$L(x, \mu, \lambda) = (x_1 - 3)^2 + (x_2 - 2)^2 + \lambda(x_1 + 2x_2 - 4) + \mu(x_1^2 + x_2^2 - 5) \\
+g(\mu,\lambda) = \inf_{x}L(x, \mu, \lambda)$ - двойств. функция. 
+Посчитаем ее:
+
+$\frac{\partial L}{\partial x_1} = 2x_1 - 6 + \lambda + 2\mu x_1 = 0 \Longrightarrow x_1 = \frac{6 - \lambda}{2(1+\mu)}$
+
+$\frac{\partial L}{\partial x_2} = 2x_2 - 4 + 2\lambda + 2\mu x_2 = 0 \Longrightarrow x_2 = \frac{2 - \lambda}{1+\mu}$
+
+Подставим эти значения в  лангранжиан и получим двойств. функцию
+
+То есть двойств. функция $g(\mu, \lambda) = -\frac{5\lambda^2 + 16\lambda\mu - 12\lambda + 20\mu^2 - 32\mu}{4(\mu + 1)}$
+
+Двойств. задача:
+$$g(\mu, \lambda) \xrightarrow[]{} max$$
+$$s.t. \mu \geq 0$$
+
+Условие Слейтера выполнено , т.к. при $x_1 = 0, x_2 = 2$ выполнено $ x_1^2 + x_2^2 < 5$ - То есть строгое неравенство $\Longrightarrow$ сильная двойственность.
+
+Ищем решение двойств. задачи:
+
+$$\frac{\partial g}{\partial \lambda} = \frac{-5\lambda - 8\mu + 6}{2\mu + 2} = 0$$
+$$\frac{\partial g}{\partial \mu} = \frac{5\lambda^2 - 28\lambda - 20\mu^2 - 40\mu + 32}{4(\mu + 1)^2} = 0$$
+
+Решаем эту систему и получаем:
+$\mu = -\frac{7}{3}$ - Но это неподходит под ограничение. А другое решение $ \\
+\mu^* = \frac{1}{3}, \lambda^* = \frac{2}{3}$ - подходит. Это и есть решение двойств. задачи.
+Тогда $x_1^* = 2, x_1^* = 1 \Longrightarrow f(x) = 2$ 
+
+**Ответ:**$f(x) = 2$
+
+\section*{Задача №2}
+$$max(3x_1 + 2x_2)$$
+$$s.t. x_1 + 3x_2 \leq 3$$
+$$6x_1 - x_2 = 4$$
+$$x_! + 2x_2 \leq 2$$
+$$x_1 \geq 0; x_2 \geq 0$$
+Найти зазор двойственности, решения прямой и двойств. задачи.
+\subsection*{Решение:}
+эта задача экв. нахождению $-min(-3x_1-2x_2)$
+
+$L(x, \mu,\lambda) = -3x_1 -2x_2 + \lambda(6x_1 - x_2 - 4) + \mu_1(x_1 + 3x_2 -3) + \mu_2(x_1 + x_2 - 2) - \mu_3 x_1 - \mu_4 x_2 = x_1(-3 + 6\lambda + \mu_1 + \mu_2 - \mu_3) + x_2(-2 - \lambda + 3\mu_1 + 2\mu_2 -\mu_4) + (-4\lambda - 3\mu_1 - 2\mu_2)$
+
+По теореме ККТ:
+
+\begin{equation*}
+    \begin{cases}
+    $L'_{x_1} = -3 + 6\lambda + \mu_1 + \mu_2 - \mu_3 = 0$ \\
+    $L'_{x_2} = -2 - \lambda + 3\mu_1 + 2\mu_2 -\mu_4 = 0$ \\
+    $\mu_1(x_1 + 3x_2 - 3) = 0$ \\
+    $\mu_2(x_1 + 2x_2 - 2) = 0$ \\
+    $\mu_3 x_1 = 0$ \\
+    $\mu_4 x_2 = 0$
+    \end{cases}
+\end{equation*}
+
+Рассм. случай:
+$\mu_4 > 0; x_2 = 0; \mu_1=\mu_2=\mu_3=0:$ \\
+
+\begin{equation*}
+    \begin{cases}
+    $ -3 + 6\lambda = 0$ \\
+    $-2 - \lambda + \mu_4 = 0$ \\
+    $6x_1 = 4$
+    \end{cases}
+\end{equation*}
+
+$x_1 = 2/3; x_2 = 0$ - минимум $ \Longleftarrow p^* = f_{min} = -2$
+
+Теперь найдем решние двойств. задачи:
+
+$g(\mu, \lambda) = \inf_{x}L(x_1, x_2, \lambda, \mu)$\\
+Поскольку $x_i \geq 0 $, то $\inf_{x}$ отличен от $-\infty$, когда коэф-фы перед $x_i$ неотрицательны. А именно:
+
+\begin{equation*}
+    \begin{cases}
+    $-3 + 6\lambda + \mu_1 \geq 0$ \\
+    $-2 - \lambda + 3\mu_1 \geq 0$
+    \end{cases}
+\end{equation*}
+
+То есть : $\mu_1 \geq \frac{15}{19}; \lambda \geq \frac{7}{19}$
+
+Получаем:
+
+\begin{equation*}
+    g(\lambda, \mu_1, \mu_2) = \begin{cases}
+    $-4\lambda - 3\mu_1 - 2\mu_2, \mu_1 \geq \frac{15}{19}, \lambda \geq \frac{7}{19}$\\
+    $-\infty$, иначе
+    \end{cases}
+\end{equation*}
+
+$\max_{\lambda, \mu_1, \mu_2} g(\lambda, \mu_1, \mu_2) = max (-(4\lambda + 3\mu_1 + 2\mu_2)) = -min(4\lambda + 3\mu_1 + 2\mu_2) = \frac{-73}{9} = d^*$
+
+**Ответ:**
+$p^* = -2$\\
+$d^* = \frac{-73}{9}$
+$\epsilon = p^* - d^* = \frac{35}{9}$
+\end{document}

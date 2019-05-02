@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[russian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Методы Оптимизации, ДЗ №2}
+\author{Начинкин Илья, 695}
+
+\begin{document}
+\maketitle
+
+
+\section*{Задача 1}
+ $f(x,y) = \frac{x^2}{y}, domf = \{(x, y) \in \mathcal{R}^2  \| y > 0\}$
+ \subsection*{Решение:}
+ $$\frac{\partial f}{\partial x} = \frac{2x}{y} ;
+    \frac{\partial f}{\partial y} = -\frac{x^2}{y^2} ; $$
+Посчитаем вторые производные для Гессиана
+$$    \frac{\partial^2 f}{\partial x^2} = \frac{2}{y} ;
+    \frac{\partial^2 f}{\partial x \partial y} = -\frac{2x}{y^2} ;
+    \frac{\partial^2 f}{\partial y^2} = 2\frac{x^2}{y^3} ;
+ $$
+ 
+ $$\bigtriangledown^2  f(x) \succeq 0$$, так как 
+ $$\frac{\partial^2 f}{\partial x^2} > 0, det(H) = 0$$
+ 
+ Значит $f(x)$ - выпукла
+
+
+\section*{Задача 3}
+Проверить на выпуклость: $f(x) = \exp{x} - 1 ;
+f(x_1, x_2) = x_1*x_2 , x \in \mathcal{R}^{2}_{++} ; 
+f(x_1, x_2) = \frac{1}{x_1*x_2} , x \in  \mathcal{R}^{2}_{++}$
+\subsection*{Решение:}
+
+\begin{enumerate}
+    \item 
+    $$f(x) = \exp{x} - 1$$
+    $$f''(x) = e^x \geq 0$$, Значит, выпукла.
+    \item
+    $$f(x_1, x_2) = x_1*x_2 , x \in \mathcal{R}^{2}_{++}$$
+    $$\frac{\partial^2 f}{\partial x_1^2} = \frac{\partial^2 f}{\partial x_2^2} = 0 , \frac{\partial^2 f}{\partial x_1 \partial x_2} = 1$$
+    $$detH = -1$$, Значит, функция невыпукла.
+    \item
+    $$f(x_1, x_2) = \frac{1}{x_1*x_2} , x \in  \mathcal{R}^{2}_{++}$$
+    $$\frac{\partial^2 f}{\partial x_1^2} = \frac{2}{x_1^3*x_2}, \frac{\partial^2 f}{\partial x_2^2} = \frac{2}{x_1*x_2^3}, \frac{\partial^2 f}{\partial x_1 \partial x_2} = \frac{1}{x_1^2*x_2^2}$$
+    $$\bigtriangledown^2  f(x) \succeq 0$$, так как 
+ $$\frac{\partial^2 f}{\partial x^2} > 0, det(H) = \frac{3}{x_1^4*x_2^4} > 0$$
+ Значит, она выпукла.
+\end{enumerate}
+
+\section*{Задача 4}
+$D(p, q) = \Sigma_{i=1}^{n}(p_i*log(\frac{p_i}{q_i}) - p_i + q_i$
+$p, q \in \mathcal{R}^{2}_{++}$
+
+Доказать, $D(p,q) \geq 0 ; \forall p, q \in \mathcal{R}^{2}_{++}$.
+
+Кроме того $D(p,q) = 0 \Leftrightarrow p = q$
+\subsection*{Решение:}
+Воспользуемся подсказкой:
+
+$D(p, q) = f(p) - f(q) - \bigtriangledown f(q)^T*(p - q), f(p) = \Sigma_{i=1}^{n}p_i*log(p_i)$
+$$\frac{\partial^2 f}{\partial p_i^2} = \frac{1}{p_i}$$
+$$\frac{\partial^2 f}{\partial p_i \partial p_j} = 0$$
+То есть Гессиан - есть диагональная матрица с положительными значениями на диагонали, то есть $\bigtriangledown^2  f(x) \succeq 0$, то есть выпукла, значит по критерию 1 выпуклости:
+Получается, что $D(p, q) \geq 0$
+
+Другой пункт, из того, что $p = q$, очевидно следует, что $D(p,q) = 0$
+\section*{Задача 2}
+Показать, что функция вогнута: $f(x) = (\prod_{i=1}^{n}x_i)^\frac{1}{n}, x \in \mathcal{R}^2_{++}$
+\subsection*{Решение:}
+\textbf{Лемма}:
+$f(x)$ - вогнута $\Leftrightarrow$ $log(f(x))$ - вогнута
+
+\textbf{Док-во:} f - вогнута $\Leftrightarrow \forall x1, x2 \in C$ - выпуклого; $\forall 0 \leq \lambda \leq 1$ 
+$f(\lambda x_1 + (1 - \lambda) x_2) \geq \lambda f(x_1) + (1 - \lambda) f(x_2)$
+
+$log(f(\lambda x_1 + (1 - \lambda) x_2)) \geq log(\lambda f(x_1) + (1 - \lambda) f(x_2)) \geq \lambda log(f(x_1)) + (1 - \lambda) log(f(x_2))$ - (так как log - вогнута).\textbf{ч.т.д.}
+
+Теперь возмем $log(f(x)) = \frac{1}{n}*\Sigma_{i=1}^{n}log(x_i)$
+
+Легко понять, что $\bigtriangledown^2 f(x) = Diag(-\frac{1}{n*x_1^2}, .. , -\frac{1}{n*x_n^2}) \preceq 0$, то есть $log(f(x)$ - вогнута, а значит $f(x)$ - вогнута
+
+\end{document}

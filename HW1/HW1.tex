@@ -1,0 +1,64 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[russian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Методы Оптимизации, ДЗ №1}
+\author{Начинкин Илья, 695}
+
+\begin{document}
+\maketitle
+
+
+\section*{Задача 1}
+Множество Афинно $\Longleftrightarrow$ его пересечение с любой прямой афинно
+\subsection*{Решение:}
+
+Покажем сначала, что пересечение афинных множеств афинно.
+Если пересечение содержит всего одну точку или пусто, то доказано. Если есть хотя бы две точки, то так как точки лежат в каждом из множеств, значит и вся прямая, проходящая через эти две точки, лежит в каждом из множеств, а, значит, и в пересечении. Следовательно, доказано - пересечение афинных множеств афинно. 
+
+Теперь покажем наше утверждение:
+
+\textbf{$\Longrightarrow$:} Прямая очевидно является афинным множеством, а пересечение афинных - афинно, значит пересечение афинного множества с любой прямой будет афинным.
+
+\textbf{$\Longleftarrow$:} Если, $\mathcal{X}$  - пустое или состоит из одной точки, то оно афинно. Пусть $x, y \in \mathcal{X}$. Через две точки проходит прямая, а пересечение с любой прямой афинно, значит, так как $x, y \in \mathcal{X}\cap$Прямая, следовательно, вся прямая, проходящая через $x, y$ лежит в пересечении $\mathcal{X}$ и себя самой. Значит, прямая лежит в  $\mathcal{X}$. А следовательно, $\mathcal{X}$  - афинно.
+
+\section*{Задача 2}
+$S_{1},S_{2},  \ldots , S_{k} $ - непустые множества из $\mathbb{R}^{n}$. Доказать, что $\textbf{cone}(\bigcup_{i=1}^{k}S_{i}) = \sum_{i=1}^{k}\textbf{cone}(S_{i})$. $\textbf{conv}(\sum_{i=1}^{k}S_{i}) = \sum_{i=1}^{k}\textbf{conv}(S_{i})$
+\subsection*{Решение:}
+$\textbf{1ое равенство:}$ 
+
+$\subseteq:$ Пусть $x \in \textbf{cone}(\bigcup_{i=1}^{k}S_{i})$. То есть $x = \sum_{i=1}^{m}\theta_{i}x_{i}, 	\forall{i}  \theta_{i}\geq0, \exists{j} x_{i} \in S_{j}, m \leq k$. Следовательно, $x \in \sum_{i=1}^{m}\theta_{j_i}S_{n_i} \subseteq \sum_{n=1}^{k}\theta_{i}S_{i}$ - действительно, для оставшихся $S_{i}$ возьмем $\theta_{i} = 0$. T.к. $\forall{i=1 \ldots k}$  ,  $\theta_{i}S_{i} \subseteq \textbf{cone}(S_{i})$, то $x \in \sum_{i=1}^{k}\textbf{cone}(S_{i})$. Доказано.
+
+$\supseteq:$ Пусть $x \in \sum_{i=1}^{k}\textbf{cone}(S_{i})$. $x = \sum_{i=1}^{k}\sum_{j=1}^{m_i}\theta_{ij}x_{ij}$, где $\forall{i}\forall{j}$  $\theta_{ij} \geq 0, x_{ij} \in S_{i} \subseteq \bigcup_{i=1}^{k}S_{i}$. Следовательно, $x \in \textbf{cone}(\bigcup_{i=1}^{k}S_{i})$. Доказано.
+
+$\textbf{2ое равенство:}$
+
+$\subseteq:$ Пусть $x \in \textbf{conv}(\sum_{i=1}^{k}S_{i})$. Значит, $x = \sum_{i=1}^{m}\theta_{i}\sum_{j=1}^{k}x_{ij} = \sum_{j=1}^{k}\sum_{i=1}^{m}\theta_{i}x_{ij}$, где $\theta_{i} \geq 0 , \sum_{i=1}^{m}\theta_{i} = 1, x_{ij} \in S_{j}$. А значит, $x \in \sum_{i=1}^{k}\textbf{conv}(S_{i})$. Доказано.
+
+$\supseteq:$ Пусть $x \in \sum_{i=1}^{k}\textbf{conv}(S_{i})$. Значит, $x = \sum_{i=1}^{k}\sum_{j=1}^{m_i}\theta_{ij}x_{ij}$, где $\theta_{ij} \geq 0, \sum_{i=1}^{k}\sum_{j=1}^{m_i}\theta_{ij} = 1, x_{ij} \in S_{i}$. Аналогично переворачиваем суммы, дополняя перед этим множества $\theta$ нулями, так чтобы все $m_{i}$ были одинаковы и получаем ответ. Доказано.
+
+\section*{Задача 3}
+$S \subseteq \mathbb{R}^{n}$ - выпукло $\Longleftrightarrow$ $(\alpha + \beta)S = \alpha S + \beta S$ для всех неотрицательных $\alpha, \beta$
+
+\textbf{$\Longrightarrow$:} 
+
+$\subseteq:$ Пусть $x \in (\alpha + \beta)S$, т.е. $x = (\alpha + \beta)x_{1} = \alpha x_{1} + \beta x_{1}$, $x_{1} \in S$. Доказано.
+
+$\supseteq$ Пусть $x \in \alpha S + \beta S$, т.е. $x = \alpha x_{1} + \beta x_{2}$, $x_{1}, x_{2} \in S$. Так как $S$ - выпукло, то $\forall\theta \in [0,1] \theta x_{1} + (1 - \theta)x_{2} \in S$. Возьмем $\theta = \frac{\alpha}{\alpha + \beta}$, тогда $\alpha x_{1} + \beta x_{2} = (\alpha + \beta)(\theta x_{1} + (1 - \theta)x_{2}) \in (\alpha + \beta)S$. Доказано.
+
+\textbf{$\Longleftarrow$:} Пусть теперь $(\alpha + \beta)S = \alpha S + \beta S$. Покажем, что $S$ - выпукло. Пусть $x_{1}, x_{2} \in S, \theta \in [0,1]$, $\theta x_{1} + (1 - \theta)x_{2} \in \theta S + (1 - \theta)S = (\theta + 1-\theta)S = S$. Доказано.  
+
+\end{document}
